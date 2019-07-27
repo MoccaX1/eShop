@@ -48,5 +48,19 @@ namespace MyShopK6.Controllers
 
             return RedirectToAction(controllerName: "Home", actionName: "Error");
         }
+
+        [Route("{loai}/{url}")]
+        public IActionResult ChiTietHh(string loai, string url)
+        {
+            HangHoa hh = ctx.HangHoas.SingleOrDefault(p => p.TenHhSeoUrl == url);
+            if (hh != null)
+            {
+                HangHoaChiTiet hhct = mapper.Map<HangHoaChiTiet>(hh);
+
+                return View("ChiTiet", hhct);
+            }
+
+            return RedirectToAction(controllerName: "Home", actionName: "Error");
+        }
     }
 }

@@ -44,5 +44,7 @@ namespace MyShopK6.Models
         [ForeignKey("MaTh")]
         [Display(Name = "Thương hiệu")]
         public ThuongHieu ThuongHieu { get; set; }
+
+        public string TenHhSeoUrl => TenHh.ToUrlFriendly();
     }
 }

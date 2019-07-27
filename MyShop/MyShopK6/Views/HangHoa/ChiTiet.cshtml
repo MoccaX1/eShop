@@ -3,6 +3,14 @@
     ViewData["Title"] = "ChiTiet";
 }
 
+@section metasocials{
+    <meta property="og:url" content="http://www.nytimes.com/2015/02/19/arts/international/when-great-minds-dont-think-alike.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="@Model.TenHh" />
+    <meta property="og:description" content="@Model.MoTa" />
+    <meta property="og:image" content="/Hinh/HangHoa/@Model.Hinh" />
+}
+
 <!-- Main Container -->
 <div class="main-container col1-layout">
     <div class="container">
@@ -271,7 +279,7 @@
                                             <!--tags-->
                                             <p class="note">Use spaces to separate tags. Use single quotes (') for phrases.</p>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
                         </div>
