@@ -38,14 +38,14 @@ namespace MyShopK6.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddToCart(int productId, int qty)
+        public IActionResult AddToCart(int productId, int qty, string loai)
         {
             //Lấy giỏ hàng đang có ở Session
             List<CartItem> carts = Cart;
 
             //tìm xem đã có hàng hóa trong giỏ hàng với mã chọn hay chưa
             CartItem item = carts.SingleOrDefault(p => p.HangHoa.MaHh == productId);
-            if(item != null)//đã có
+            if (item != null)//đã có
             {
                 item.SoLuong += qty;
             }
@@ -67,19 +67,37 @@ namespace MyShopK6.Controllers
             //update lại giỏ hàng
             HttpContext.Session.SetObject("GioHang", carts);
 
+            if (loai == "AJAX")
+            {
+                return Json(new
+                {
+                    SoLuong = Cart.Sum(p => p.SoLuong),
+                    TongTien = Cart.Sum(p => p.ThanhTien)
+                });
+            }
+
             return RedirectToAction("Index");
         }
 
-        public IActionResult RemoveCart(int id)
+        public IActionResult RemoveCart(int id, string loai)
         {
             List<CartItem> carts = Cart;
 
             CartItem item = carts.SingleOrDefault(p => p.HangHoa.MaHh == id);
-            if(item != null)
+            if (item != null)
             {
                 carts.Remove(item);
 
                 HttpContext.Session.SetObject("GioHang", carts);
+            }
+
+            if (loai == "AJAX")
+            {
+                return Json(new
+                {
+                    SoLuong = Cart.Sum(p => p.SoLuong),
+                    TongTien = Cart.Sum(p => p.ThanhTien)
+                });
             }
 
             return RedirectToAction("Index");
