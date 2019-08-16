@@ -11,6 +11,7 @@ namespace MyShopK6.Models
         public DbSet<Loai> Loais { get; set; }
         public DbSet<ThuongHieu> ThuongHieus { get; set; }
         public DbSet<HangHoa> HangHoas { get; set; }
+        public DbSet<KhachHang> KhachHangs { get; set; }
 
         public MyDbContext(DbContextOptions options) : base(options)
         {
