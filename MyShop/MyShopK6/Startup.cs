@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyShopK6.Models;
+using Npgsql;
 
 
 namespace MyShopK6
@@ -39,7 +40,7 @@ namespace MyShopK6
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddDbContext<MyDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("MyShopK6")));
+            services.AddEntityFrameworkNpgsql().AddDbContext<MyDbContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("MyShopK6")));
 
             services.AddSession(opt => {
                 opt.IdleTimeout = TimeSpan.FromMinutes(5);
