@@ -27,7 +27,7 @@ namespace EC.SecurityService.Services
         
         private string authyBaseAddress = string.Empty;
         private string authyApiKey = string.Empty;
-        private string authyAccountSID = string.Empty;
+        private string twilioAccountSID = string.Empty;
         private string authyUserAgent = string.Empty;
         private string authyRequestContentType = "application/json";
         public string message { get; private set; }
@@ -40,7 +40,7 @@ namespace EC.SecurityService.Services
             authyBaseAddress = Configuration["SecurityServiceConfigs:AuthyBaseAddress"];
             authyApiKey = Configuration["SecurityServiceConfigs:AuthyApiKey"];
             authyUserAgent = Configuration["SecurityServiceConfigs:AuthyUserAgent"];            
-            authyAccountSID = Configuration["SecurityServiceConfigs:AuthyAccountSID"];
+            twilioAccountSID = Configuration["SecurityServiceConfigs:TwilioAccountSID"];
                     
             _clientFactory = clientFactory;
             client = this.CreateHttpClient();

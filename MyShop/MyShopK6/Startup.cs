@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyShopK6.Models;
-
+using MyShopK6.Services;
 
 namespace MyShopK6
 {
@@ -45,6 +45,8 @@ namespace MyShopK6
             // 2FA
             services.AddHttpClient();
             services.AddTransient<IAuthy, Authy>();
+            //SMS
+            services.AddTransient<ISmsService, SmsService>();
 
             services.AddSession(opt => {
                 opt.IdleTimeout = TimeSpan.FromMinutes(5);

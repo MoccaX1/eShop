@@ -6,18 +6,22 @@ using EC.SecurityService.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyShopK6.Models;
+using MyShopK6.Services;
 using Newtonsoft.Json;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace MyShopK6.Controllers
 {
     public class SendSMSController : Controller
     {
         private readonly IAuthy _authy;
+        private readonly ISmsService _smsService;
         public readonly MyDbContext _context;
-        public SendSMSController(IAuthy authy, MyDbContext context)
+        public SendSMSController(IAuthy authy, MyDbContext context, ISmsService smsService)
         {
             _authy = authy;
             _context = context;
+            _smsService = smsService;
         }
 
         public IActionResult Index()
@@ -105,6 +109,23 @@ namespace MyShopK6.Controllers
                 }
             }
             return Content($"Không có khách hàng nào có điện thoại: {phone}");
+        }
+
+        public async Task<IActionResult> SendSms(string phone, string content)
+        {
+            SmsMessage model = new SmsMessage
+            {
+                NameTo = "Hien",
+                NumberFrom = "+84854774690",
+                NumberTo = "+84989366990",
+                Body = "This is SMS from EC HCMUE",
+                Greeting = "HCMUEr",
+                Signature = "HIENLTH"
+            };
+
+            var result = await _smsService.Send(model);
+
+            return Json(result);
         }
     }
 }
