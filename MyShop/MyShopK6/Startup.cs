@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using EC.SecurityService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -35,16 +36,21 @@ namespace MyShopK6
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<MyDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("MyShopK6")));
 
+            // 2FA
+            services.AddHttpClient();
+            services.AddTransient<IAuthy, Authy>();
+
             services.AddSession(opt => {
                 opt.IdleTimeout = TimeSpan.FromMinutes(5);
                 opt.Cookie.IsEssential = true;
             });
+
             
         }
 

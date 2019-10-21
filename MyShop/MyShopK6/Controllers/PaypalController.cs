@@ -141,8 +141,6 @@ namespace MyShopK6.Controllers
 
                 return RedirectToAction("Fail");
             }
-
-            return View();
         }
 
         public IActionResult Success()
