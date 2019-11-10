@@ -48,6 +48,9 @@ namespace MyShopK6.Models
         public DateTime LastLogin { get; set; }
         public bool IsActive { get; set; }
         public string Role { get; set; } = MyRole.Customer;
+        public string AuthyId { get; set; }
+        public string PhoneNumber { get; set; }
+        public bool PhoneNumberConfirmed { get; set; }
     }
 
     public class MyRole

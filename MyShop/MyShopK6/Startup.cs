@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using EC.SecurityService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,8 +13,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyShopK6.Models;
+<<<<<<< HEAD
 using Npgsql;
 
+=======
+using MyShopK6.Services;
+>>>>>>> upstream/master
 
 namespace MyShopK6
 {
@@ -36,16 +41,23 @@ namespace MyShopK6
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddEntityFrameworkNpgsql().AddDbContext<MyDbContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("MyShopK6")));
 
+            // 2FA
+            services.AddHttpClient();
+            services.AddTransient<IAuthy, Authy>();
+            //SMS
+            services.AddTransient<ISmsService, SmsService>();
+
             services.AddSession(opt => {
                 opt.IdleTimeout = TimeSpan.FromMinutes(5);
                 opt.Cookie.IsEssential = true;
             });
+
             
         }
 
